@@ -85,23 +85,29 @@ public class ConstructorResolver {
             throws BeanCreationException {
         List<MethodArguments.ArgumentHolder> methodArguments = new ArrayList<>();
 
+        // 1. 获取指定构造器的参数列表
         Parameter[] parameters = candidate.getParameters();
         int argIndex = 0;
+
+        // 2. 遍历每一个参数
         for (Parameter parameter : parameters) {
+            // 2.1 获取参数的名称和类型，尝试从bean factory中寻找指定名称和类型的bean对象，找到返回
             String argName = parameter.getName();
             Class<?> argType = parameter.getType();
             Object argValue = null;
-
             Map<String, Object> autowireCandidates = this.beanFactory.findAutowireCandidate(argType, argName);
+            // 2.2 该参数不能被满足 --> 则该构造器不能被满足 --> 抛异常结束
             if (autowireCandidates.isEmpty()) {
                 throw new BeanCreationException("Error in resolve method dependency: " + candidate.getName());
             }
-            // 只会循环一次
+            // 2.3 取第一个满足该参数的依赖 (bean对象或beanClass)
             for (String beanName : autowireCandidates.keySet()) {
+                // 如果是beanClass，需要调用getBean获取bean对象
                 argValue = (autowireCandidates.get(beanName) instanceof Class) ?
                         this.beanFactory.getBean(beanName) : autowireCandidates.get(beanName);
             }
 
+            // 2.4 将房钱参数添加到参数列表
             methodArguments.add(new MethodArguments.ArgumentHolder(argIndex, argName, argType, argValue));
             argIndex++;
         }

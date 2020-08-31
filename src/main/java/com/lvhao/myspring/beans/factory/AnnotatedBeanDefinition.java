@@ -49,6 +49,6 @@ public class AnnotatedBeanDefinition implements BeanDefinition {
     }
 
     public boolean isPrototype() {
-        return scope.equals(BeanDefinition.SCOPE_PROTOTYPE);
+        return scope.equalsIgnoreCase(BeanDefinition.SCOPE_PROTOTYPE);
     }
 }

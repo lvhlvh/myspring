@@ -57,12 +57,14 @@ public class AnnotatedBeanDefinitionReader {
             BeanDefinition bd = registry.getBeanDefinition(bdName);
             Class<?> clazz = bd.getBeanClass();
             if (clazz.isAnnotationPresent(Configuration.class)) {
-                ComponentScan[] componentScans = clazz.getAnnotationsByType(ComponentScan.class);
-                if (componentScans.length > 0) {
-                    ComponentScan componentScan = componentScans[0];
-                    String[] basePackages = componentScan.basePackages();
-                    for (String basePackage : basePackages) {
-                        doScan(basePackage);
+                if (clazz.isAnnotationPresent(ComponentScan.class)) {
+                    ComponentScan[] componentScans = clazz.getAnnotationsByType(ComponentScan.class);
+                    if (componentScans.length > 0) {
+                        ComponentScan componentScan = componentScans[0];
+                        String[] basePackages = componentScan.basePackages();
+                        for (String basePackage : basePackages) {
+                            doScan(basePackage);
+                        }
                     }
                 }
             }

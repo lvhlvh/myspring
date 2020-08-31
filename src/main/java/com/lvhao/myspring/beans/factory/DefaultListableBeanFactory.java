@@ -42,6 +42,10 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
     }
 
 
+    /**
+     * 从bean factory中寻找指定beanName的bean对象，如果存在bean对象，则put(beanName, bean);
+     * 否则, put(beanName, beanClass)
+     */
     @Override
     public Map<String, Object> findAutowireCandidate(Class<?> type, String beanName) {
         Map<String, Object> candidate = new HashMap<>();
