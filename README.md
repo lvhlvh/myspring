@@ -240,7 +240,7 @@ public class AppConfig {
 
 输出结果：
 
-<img src="https://raw.githubusercontent.com/lvhlvh/pictures/master/img/20200831172447.png" style="zoom:80%;" />![](https://raw.githubusercontent.com/lvhlvh/pictures/master/img/20200831180139.png)
+<img src="https://raw.githubusercontent.com/lvhlvh/pictures/master/img/20200831172447.png" style="zoom:80%;" />
 
 ### 4. 作用域
 
